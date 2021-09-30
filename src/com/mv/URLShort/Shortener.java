@@ -23,7 +23,7 @@ public class Shortener
             shortURL[i] = getCharList().charAt(rand.nextInt(62));
 
         //StringBuilder sb = new StringBuilder("http://tinyurl.com/");
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("http://urlRoot.com/);
         sb.append(new String(shortURL));
 
         urlMap.insertURL(sb.toString(),longURL);

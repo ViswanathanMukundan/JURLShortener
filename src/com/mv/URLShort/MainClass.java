@@ -1,5 +1,6 @@
 package com.mv.URLShort;
 
+/*TEST CLASS*/
 public class MainClass
 {
 	static int SHORTURL_LENGTH = 8;

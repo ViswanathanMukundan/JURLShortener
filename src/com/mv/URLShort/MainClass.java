@@ -2,6 +2,7 @@ package com.mv.URLShort;
 
 public class MainClass
 {
+	static int SHORTURL_LENGTH = 8;
 	public static void main(String[] args)
 	{
 		Shortener shortener = new Shortener();
@@ -10,9 +11,9 @@ public class MainClass
 		String URL2 = "123asdASD456fghFGH789jklJKLqwertyuiopzxcvbnm";
 		String URL3 = "qwertyuiopasdfghjklzxcvbnm,.0123456789!)@(#*$&%^";
 		
-		String shortenedURL1 = shortener.idToShortURL(URL1, 8);
-		String shortenedURL2 = shortener.idToShortURL(URL2, 8);
-		String shortenedURL3 = shortener.idToShortURL(URL3, 8);
+		String shortenedURL1 = shortener.idToShortURL(URL1, SHORTURL_LENGTH);
+		String shortenedURL2 = shortener.idToShortURL(URL2, SHORTURL_LENGTH);
+		String shortenedURL3 = shortener.idToShortURL(URL3, SHORTURL_LENGTH);
 		
 		System.out.println(URL1 + " mapped to " + shortenedURL1);
 		System.out.println(URL2 + " mapped to " + shortenedURL2);

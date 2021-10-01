@@ -26,7 +26,7 @@ public class Shortener
         StringBuilder sb = new StringBuilder("http://urlRoot.com/");
         sb.append(new String(shortURL));
 
-        urlMap.insertURL(sb.toString(),longURL);
+        urlMap.insertURL(longURL, sb.toString());
         System.out.println("Size of hash map::: " + urlMap.getSize());
         return sb.toString();
 	}

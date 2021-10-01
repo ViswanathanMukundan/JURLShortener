@@ -39,7 +39,7 @@ public class URLMappingStore
 		}
 	}
 	
-	public static URLMappingStore getInstance()
+	public static synchronized URLMappingStore getInstance()
 	{
 		return ClassLoader.singleInstance;
 	}

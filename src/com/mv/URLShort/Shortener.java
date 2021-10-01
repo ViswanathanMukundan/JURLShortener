@@ -19,10 +19,10 @@ public class Shortener
 		Random rand = new Random();
         char [] shortURL = new char[urlLen];
 
+	//GENERATE THE SHORTENED URL WITHIN THE SPECIFIED LENGTH BY PICKING UP RANDOM CHARACTERS
         for(int i = 0; i < urlLen; i++ )
             shortURL[i] = getCharList().charAt(rand.nextInt(62));
 
-        //StringBuilder sb = new StringBuilder("http://tinyurl.com/");
         StringBuilder sb = new StringBuilder("http://urlRoot.com/);
         sb.append(new String(shortURL));
 

@@ -26,7 +26,11 @@ public class Shortener
         StringBuilder sb = new StringBuilder("http://urlRoot.com/");
         sb.append(new String(shortURL));
 
+<<<<<<< HEAD
         URLMappingStore.getInstance().insertURL(longURL, sb.toString());
+=======
+        urlMap.insertURL(longURL, sb.toString());
+>>>>>>> branch 'master' of https://github.com/ViswanathanMukundan/JURLShortener.git
         System.out.println("Size of hash map::: " + urlMap.getSize());
         return sb.toString();
 	}

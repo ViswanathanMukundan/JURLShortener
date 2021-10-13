@@ -85,11 +85,15 @@ public class URLMappingStore
 		//return urlMap.get(shortenedURL);
 	}
 	
+<<<<<<< HEAD
 	//ALL METHODS BEYOND THIS LINE ARE INTENDED TO PROTECT THE SINGLETON PATTERN FROM BEING BROKEN
 	
 	private static URLMappingStore singleInstance;
 	
 	private URLMappingStore() throws SQLException, ClassNotFoundException
+=======
+	public static synchronized URLMappingStore getInstance()
+>>>>>>> branch 'master' of https://github.com/ViswanathanMukundan/JURLShortener.git
 	{
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		this.connection = DriverManager.getConnection("jdbc:mysql://localhost/URLMapDB", "root", "vishy");

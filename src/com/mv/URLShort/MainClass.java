@@ -3,7 +3,10 @@ package com.mv.URLShort;
 import java.time.Duration;
 import java.time.Instant;
 
-/*TEST CLASS*/
+/*
+CLASS TO IMPLEMENT THE MAIN METHOD FOR THE PROJECT
+*/
+
 public class MainClass
 {
 	static int SHORTURL_LENGTH = 8;
@@ -14,9 +17,8 @@ public class MainClass
 	}
 	public static void main(String[] args)
 	{
-		//new Shortener().idToShortURL("abcdefghijklmnopqrstuvwxyz", 8);
 			new ThreadClass("qwertyuiopasdfghjklzxcvbnm").start();
-			/*new ThreadClass2("abcdefghijklmnopqrstuvwxyz").start();
+			new ThreadClass2("abcdefghijklmnopqrstuvwxyz").start();
 			new ThreadClass("abcdefghijklmnopqrstuvwxyzABCD").start();
 			new ThreadClass2("abcdefghijklmnopqrstuvwxyzEFGH").start();
 			
@@ -27,7 +29,7 @@ public class MainClass
 			catch(InterruptedException e)
 			{
 			e.printStackTrace();
-			}*/
+			}
 			new Shortener();
 			System.out.println("Final hashmap size::: " + Shortener.urlMap.getSize());
 		//System.out.println(shortener.urlMap.getUrlMap());

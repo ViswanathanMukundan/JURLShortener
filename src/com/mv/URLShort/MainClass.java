@@ -1,24 +1,38 @@
 package com.mv.URLShort;
 
+import java.time.Duration;
+import java.time.Instant;
+
 /*TEST CLASS*/
 public class MainClass
 {
 	static int SHORTURL_LENGTH = 8;
+	
+	public static void addURL(Shortener shortener, String URL)
+	{
+		 shortener.idToShortURL(URL, SHORTURL_LENGTH);
+	}
 	public static void main(String[] args)
 	{
-		Shortener shortener = new Shortener();
+		//new Shortener().idToShortURL("abcdefghijklmnopqrstuvwxyz", 8);
+			new ThreadClass("qwertyuiopasdfghjklzxcvbnm").start();
+			/*new ThreadClass2("abcdefghijklmnopqrstuvwxyz").start();
+			new ThreadClass("abcdefghijklmnopqrstuvwxyzABCD").start();
+			new ThreadClass2("abcdefghijklmnopqrstuvwxyzEFGH").start();
+			
+			try
+			{
+				Thread.sleep(10000);
+			}
+			catch(InterruptedException e)
+			{
+			e.printStackTrace();
+			}*/
+			new Shortener();
+			System.out.println("Final hashmap size::: " + Shortener.urlMap.getSize());
+		//System.out.println(shortener.urlMap.getUrlMap());
 		
-		String URL1 = "ANOTHER_RANDOM_SEQUENCE_OF_CHARACTERS_TO_SERVE_THE_PURPOSE_oF_URL";
-		String URL2 = "123asdASD456fghFGH789jklJKLqwertyuiopzxcvbnm";
-		String URL3 = "qwertyuiopasdfghjklzxcvbnm,.0123456789!)@(#*$&%^";
 		
-		String shortenedURL1 = shortener.idToShortURL(URL1, SHORTURL_LENGTH);
-		String shortenedURL2 = shortener.idToShortURL(URL2, SHORTURL_LENGTH);
-		String shortenedURL3 = shortener.idToShortURL(URL3, SHORTURL_LENGTH);
-		
-		System.out.println(URL1 + " mapped to " + shortenedURL1);
-		System.out.println(URL2 + " mapped to " + shortenedURL2);
-		System.out.println(URL3 + " mapped to " + shortenedURL3);
 
 		//assert (URL2.hashCode() == shortener.retrieveOriginalURL(shortenedURL2).hashCode());
 	}

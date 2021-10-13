@@ -1,47 +1,112 @@
 package com.mv.URLShort;
 
-import java.util.HashMap;
+import javax.sql.DataSource;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /*
- * CLASS TO STORE THE HASHMAP THAT MAPS THE URLS TO THEIR SHORTENED KEYS.
- * FOR SECURITY REASONS, THIS CLASS SHOULD BE IMPLEMENTED AS A SINGLETON CLASS.
+ * CLASS TO STORE THE DB DETAILS THAT STORE URLS AND THEIR SHORTENED KEYS.
+ * FOR SECURITY REASONS, THIS CLASS IS IMPLEMENTED AS A SINGLETON CLASS.
  * */
 
 public class URLMappingStore
 {
-	private HashMap<String, String> urlMap = new HashMap<String, String>();
+	private DataSource ds = ConnPool.getDataSource();
+	private Connection connection = ds.getConnection();
 	
 	public int getSize()
 	{
-		return urlMap.size();
+		try
+		{
+			//Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/URLMapDB", "root", "vishy");
+			ResultSet resultSet = connection.createStatement().executeQuery("SELECT COUNT(*) FROM UrlMap;");
+			while(resultSet.next())
+				return resultSet.getInt(1);	
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return -1;
 	}
 	
 	public void insertURL(String originalURL, String shortenedURL)
 	{
-		urlMap.put(originalURL, shortenedURL);
+		try
+		{
+			//Class.forName("com.mysql.cj.jdbc.Driver");
+			//Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/URLMapDB", "root", "vishy");
+			if(!checkIfURLExists(originalURL))
+			{
+				String sqlQuery = "INSERT INTO UrlMap VALUES ('" + originalURL + "', '" + shortenedURL + "');";
+				connection.createStatement().executeUpdate(sqlQuery);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean checkIfURLExists(String originalURL)
+	{
+		try
+		{
+			return connection.createStatement().executeQuery("SELECT longURL FROM UrlMap WHERE longURL = '" + originalURL + "';").next();
+		}
+		catch(Exception e)
+		{
+			e.getStackTrace();
+		}
+		return false;
 	}
 	
 	public String returnOriginalURL(String shortenedURL)
 	{
-		return urlMap.get(shortenedURL);
-	}
-	
-	private static class ClassLoader
-	{
-		private static final URLMappingStore singleInstance = new URLMappingStore();
-	}
-	
-	private URLMappingStore() 
-	{
-		if(ClassLoader.singleInstance != null)
+		//return "String";
+		String query = "SELECT longURL FROM UrlMap WHERE shortURL = '" + shortenedURL + "';";
+		try
 		{
-			throw new IllegalStateException("Already instantiated");
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+				return "Retrieved URL for " + shortenedURL + "::: " + rs.getString("longURL");
+		} 
+		catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return "No result found";
+		//return urlMap.get(shortenedURL);
 	}
 	
-	public static URLMappingStore getInstance()
+	//ALL METHODS BEYOND THIS LINE ARE INTENDED TO PROTECT THE SINGLETON PATTERN FROM BEING BROKEN
+	
+	private static URLMappingStore singleInstance;
+	
+	private URLMappingStore() throws SQLException, ClassNotFoundException
 	{
-		return ClassLoader.singleInstance;
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		this.connection = DriverManager.getConnection("jdbc:mysql://localhost/URLMapDB", "root", "vishy");
+	}
+	
+	public synchronized static URLMappingStore getInstance()
+	{
+		if(singleInstance == null)
+			try
+			{
+				singleInstance = new URLMappingStore();
+			}
+			catch (ClassNotFoundException | SQLException e)
+			{
+				e.printStackTrace();
+			}
+		return singleInstance;
 	}
 	
 	@Override

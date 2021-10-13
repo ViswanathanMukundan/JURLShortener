@@ -1,5 +1,8 @@
 package com.mv.URLShort;
 
+/*
+SAMPLE THREAD CLASS TO CHECK THE SINGLETON-NESS OF THE DB CONNECTION
+*/
 public class ThreadClass extends Thread
 {
 	

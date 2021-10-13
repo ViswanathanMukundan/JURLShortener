@@ -22,7 +22,6 @@ public class URLMappingStore
 	{
 		try
 		{
-			//Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/URLMapDB", "root", "vishy");
 			ResultSet resultSet = connection.createStatement().executeQuery("SELECT COUNT(*) FROM UrlMap;");
 			while(resultSet.next())
 				return resultSet.getInt(1);	
@@ -38,8 +37,6 @@ public class URLMappingStore
 	{
 		try
 		{
-			//Class.forName("com.mysql.cj.jdbc.Driver");
-			//Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/URLMapDB", "root", "vishy");
 			if(!checkIfURLExists(originalURL))
 			{
 				String sqlQuery = "INSERT INTO UrlMap VALUES ('" + originalURL + "', '" + shortenedURL + "');";
@@ -67,7 +64,6 @@ public class URLMappingStore
 	
 	public String returnOriginalURL(String shortenedURL)
 	{
-		//return "String";
 		String query = "SELECT longURL FROM UrlMap WHERE shortURL = '" + shortenedURL + "';";
 		try
 		{
@@ -82,21 +78,14 @@ public class URLMappingStore
 			e.printStackTrace();
 		}
 		return "No result found";
-		//return urlMap.get(shortenedURL);
 	}
 	
-<<<<<<< HEAD
 	//ALL METHODS BEYOND THIS LINE ARE INTENDED TO PROTECT THE SINGLETON PATTERN FROM BEING BROKEN
 	
 	private static URLMappingStore singleInstance;
 	
 	private URLMappingStore() throws SQLException, ClassNotFoundException
-=======
-	public static synchronized URLMappingStore getInstance()
->>>>>>> branch 'master' of https://github.com/ViswanathanMukundan/JURLShortener.git
 	{
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		this.connection = DriverManager.getConnection("jdbc:mysql://localhost/URLMapDB", "root", "vishy");
 	}
 	
 	public synchronized static URLMappingStore getInstance()
